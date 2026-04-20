@@ -1,0 +1,31 @@
+# Aime Voice Assistant — Python Dependencies
+
+# Speech-to-text (OpenAI Whisper API)
+openai>=1.30.0
+
+# LLM (Anthropic Claude Haiku)
+anthropic>=0.25.0
+
+# Text-to-speech + Voice Cloning (ElevenLabs)
+elevenlabs>=1.0.0
+
+# Audio recording & playback (local mode only)
+sounddevice>=0.4.6
+scipy>=1.11.0
+numpy>=1.24.0
+pygame>=2.5.0
+
+# Environment variables
+python-dotenv>=1.0.0
+
+# RAG (Retrieval-Augmented Generation)
+langchain>=0.2.0
+langchain-community>=0.2.0
+langchain-openai>=0.1.0
+langchain-text-splitters>=0.2.0
+chromadb>=0.5.0
+
+# Web API
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9

@@ -1,0 +1,19 @@
+# Environment & secrets
+.env
+
+# ChromaDB vector store (built locally from knowledge.txt)
+chroma_db/
+
+# Recorded voice sample
+voice_sample.wav
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# VS Code
+.vscode/

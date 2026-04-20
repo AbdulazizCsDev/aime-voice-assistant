@@ -1,0 +1,77 @@
+# Abdulaziz Alhaidan — Personal Knowledge Base for Aime
+
+## Personal Information
+- Full Name: Abdulaziz Alhaidan (عبدالعزيز الحيدان)
+- Nationality: Saudi
+- Location: Riyadh, Saudi Arabia
+- Phone: 0540496366
+- Email: abdulaziz.alhaidan.cs@gmail.com
+- LinkedIn: linkedin.com/in/abdulazizalhaidan-a902b4232
+- GitHub: github.com/AbdulazizCsDev
+
+## Education
+- Degree: Bachelor of Computer Science (علوم الحاسب والمعلومات)
+- University: Majmaah University — College of Sciences, Zulfi Campus
+- GPA: 4.01 / 5 — Grade: Very Good (جيد جداً)
+- Study Period: August 2020 – June 2025 (5 years, full-time)
+- Credit Hours Completed: 163
+- Graduation Date: June 1, 2025
+
+## Certifications
+- IBM Data Science Professional Certificate
+- DeepLearning.AI TensorFlow Specialization
+- AWS Cloud Practitioner Essentials
+
+## Technical Skills
+- Programming Languages: Python, JavaScript, Java, C++, Dart
+- Backend Engineering: FastAPI, Flask, REST APIs, API Integration, JSON
+- Databases: SQL, MySQL, Database Design
+- Cloud & DevOps: AWS (IAM, EC2, S3), Docker, CI/CD fundamentals
+- Frontend: React.js, HTML, CSS
+- AI / Machine Learning: Scikit-learn, TensorFlow basics, Time Series Forecasting, Model Evaluation, LangChain, ChromaDB, RAG pipelines
+- Engineering Practices: OOP, MVC, Modular Design, Debugging, Unit Testing, Agile
+
+## Languages
+- Arabic: Native
+- English: Advanced
+
+## Projects
+
+### 1. Aime Voice Assistant
+An intelligent voice assistant built in Python, designed primarily for Arabic with multilingual support. It clones the user's voice on first run, then listens continuously, transcribes speech using OpenAI Whisper, sends it to Claude (Anthropic) for a response, and reads the reply back in the cloned voice via ElevenLabs. Enhanced with RAG (LangChain + ChromaDB) to have personal knowledge about the user.
+- Technologies: Python, OpenAI Whisper API, Anthropic Claude Haiku, ElevenLabs (voice cloning), LangChain, ChromaDB, sounddevice, pygame
+- Key features: Arabic-first design, voice cloning, real-time speech loop, multi-turn conversation memory, RAG knowledge base
+
+### 2. Graduation Project – Car Wash Management System
+A full-stack car wash management system designed as the graduation project.
+- Designed and developed full-stack system for booking, order tracking, payment integration
+- Architected role-based access control for customers and administrators
+- Implemented real-time order tracking
+- Designed backend APIs supporting mobile and admin applications
+- Optimized system performance and database queries
+- Technologies: Python, FastAPI, MySQL, REST APIs, React
+
+### 3. Weather-Driven Car Wash Demand Forecasting System
+An end-to-end data pipeline to forecast car wash demand in Riyadh using historical demand patterns and live weather data.
+- Designed and implemented a production-ready REST API using FastAPI
+- Engineered time-series data pipelines and integrated third-party weather APIs
+- Built modular backend architecture with clear separation of concerns
+- Implemented recursive multi-step forecasting logic
+- Reduced prediction MAE by ~50% through feature engineering
+- Technologies: Python, FastAPI, REST APIs, SQL, Scikit-learn, Git
+
+### 4. Online Multiplayer Party Game 
+A real-time multiplayer party game with advanced game logic and reconnection handling.
+- Developed real-time multiplayer architecture using React and Socket.IO
+- Implemented concurrent state synchronization for multiple users
+- Designed modular frontend components with scalable game logic
+- Features: room management, voting system, spy detection, reconnection handling, disconnect logic
+- Technologies: React, Node.js, Socket.IO, Git
+
+### 5. X Tweets Analyzer
+A data analysis application to analyze engagement and activity patterns of X (Twitter) posts.
+- Designed backend logic for automated tweet data processing
+- Integrated external APIs and implemented structured data workflows
+- Built interactive data visualization components
+- Deployed the application for live usage
+- Technologies: Python, X API, Data Visualization

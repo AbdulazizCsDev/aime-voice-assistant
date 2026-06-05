@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "50mb",
+        "maxDuration": 60,
+        "includeFiles": "{server.py,config.py,llm.py,rag.py,tts.py,stt.py,voice_manager.py,onboarding.py,knowledge.txt,voices.json}"
+      }
+    },
+    { "src": "index.html", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/api/index.py" }
+  ]
+}

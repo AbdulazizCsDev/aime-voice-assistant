@@ -1,0 +1,9 @@
+# Extra dependencies for the local microphone loop (main.py).
+# Not installed on Vercel — install with:
+#   pip install -r requirements.txt -r requirements-local.txt
+
+sounddevice>=0.4.6
+scipy>=1.11.0
+numpy>=1.24.0
+pygame>=2.5.0
+uvicorn[standard]>=0.29.0

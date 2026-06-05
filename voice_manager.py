@@ -16,24 +16,31 @@ from datetime import datetime
 
 from elevenlabs.client import ElevenLabs
 
-_DIR        = os.path.dirname(os.path.abspath(__file__))
-_VOICES_PATH = os.path.join(_DIR, "voices.json")
+_DIR         = os.path.dirname(os.path.abspath(__file__))
+_BUNDLED_PATH = os.path.join(_DIR, "voices.json")
+# On read-only serverless filesystems (Vercel), only /tmp is writable.
+_WRITE_PATH  = os.path.join("/tmp", "voices.json") if os.access(_DIR, os.W_OK) is False else _BUNDLED_PATH
 
 
 # ── File I/O ───────────────────────────────────────────────────────────────────
 
 def _load() -> dict:
-    """Load voices.json. Returns empty structure if file is missing or corrupt."""
-    try:
-        with open(_VOICES_PATH, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return {"voices": [], "active_voice_id": None}
+    """Load voices.json. Prefer the writable copy if it exists, else the bundled one."""
+    for path in (_WRITE_PATH, _BUNDLED_PATH):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            continue
+    return {"voices": [], "active_voice_id": None}
 
 
 def _save(data: dict) -> None:
-    with open(_VOICES_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    try:
+        with open(_WRITE_PATH, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except OSError as exc:
+        print(f"  ⚠️  Could not persist voices.json ({exc}); skipping.")
 
 
 # ── Public API ─────────────────────────────────────────────────────────────────

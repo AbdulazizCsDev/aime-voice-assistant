@@ -2,12 +2,24 @@
 
 ## Personal Information
 - Full Name: Abdulaziz Alhaidan (عبدالعزيز الحيدان)
+- Title: AI / Machine Learning Engineer (مهندس ذكاء اصطناعي وتعلّم آلة)
 - Nationality: Saudi
 - Location: Riyadh, Saudi Arabia
 - Phone: 0540496366
 - Email: abdulaziz.alhaidan.cs@gmail.com
-- LinkedIn: linkedin.com/in/abdulazizalhaidan-a902b4232
+- LinkedIn: linkedin.com/in/abdulaziz-alhaidan-a902b4232
 - GitHub: github.com/AbdulazizCsDev
+- Portfolio: https://portfolio-olive-pi-74.vercel.app/
+
+## Professional Summary
+AI / Machine Learning Engineer with a B.Sc. in Computer Science who designs, builds, and ships production-grade LLM and ML systems end-to-end. Won 1st place at the Himmah Digital Camps hackathon for AI Board Room, a multi-agent executive-advisory system. Deployed an edge-optimized computer-vision model at 73 ms inference latency on a Raspberry Pi. Proficient in Python across the full lifecycle — data preparation, model training, evaluation, and production deployment via REST APIs. Specialized in LLMs, multi-agent orchestration, RAG pipelines, embeddings, and vector databases (FAISS, ChromaDB), with hands-on integration of OpenAI and Anthropic Claude. His distinctive edge is Arabic-first, production-ready AI.
+
+## Key Achievements
+- 🏆 1st place, Himmah Digital Camps hackathon (AI Board Room, multi-agent system)
+- 73 ms inference latency, edge-deployed computer-vision model (AgroCure on Raspberry Pi)
+- Led a four-person engineering team across data pipeline, training, and deployment (AgroCure)
+- Reduced prediction MAE by ~50% through feature engineering (demand forecasting)
+- GPA 4.01 / 5
 
 ## Education
 - Degree: Bachelor of Computer Science (علوم الحاسب والمعلومات)
@@ -17,19 +29,35 @@
 - Credit Hours Completed: 163
 - Graduation Date: June 1, 2025
 
+## Experience
+### AI / Machine Learning Engineering — Intensive Bootcamp (2026 – Present, current)
+- End-to-end ML pipelines from EDA to evaluation: feature engineering, hyperparameter tuning (GridSearchCV), rigorous error analysis (confusion matrices, failure-case inspection).
+- Trained CNNs (CIFAR-10, Fashion MNIST) and sequence models (RNN/LSTM, Seq2Seq); time-series forecasting; clustering (K-Means, KNN) for anomaly detection.
+- Fine-tuned transformer models with Hugging Face (BERT for sentiment analysis, text classification, word similarity).
+- Built a complete RAG system from scratch (embeddings + FAISS); advanced prompt engineering (prompt chaining, DSPy/GEPA) for structured extraction.
+- Production packaging: serialization (Pickle/Joblib), ONNX export, MLflow experiment tracking, Conda environments.
+
+### Quality Assurance Specialist — T2, Riyadh (Feb 2025 – May 2025)
+- Executed functional and regression testing, reported and tracked defects, validated fixes across releases.
+
 ## Certifications
 - IBM Data Science Professional Certificate
 - DeepLearning.AI TensorFlow Specialization
 - AWS Cloud Practitioner Essentials
 
 ## Technical Skills
-- Programming Languages: Python, JavaScript, Java, C++, Dart
-- Backend Engineering: FastAPI, Flask, REST APIs, API Integration, JSON
-- Databases: SQL, MySQL, Database Design
-- Cloud & DevOps: AWS (IAM, EC2, S3), Docker, CI/CD fundamentals
-- Frontend: React.js, HTML, CSS
-- AI / Machine Learning: Scikit-learn, TensorFlow basics, Time Series Forecasting, Model Evaluation, LangChain, ChromaDB, RAG pipelines
-- Engineering Practices: OOP, MVC, Modular Design, Debugging, Unit Testing, Agile
+- Programming Languages: Python (primary), JavaScript, Java, C++, Dart
+- Generative AI & LLMs: LLM integration (OpenAI, Anthropic Claude), multi-agent systems & agent orchestration, RAG built from scratch, embeddings, vector databases (FAISS, ChromaDB), indexing; Transformers & BERT, Hugging Face, fine-tuning, attention mechanism; prompt engineering (prompt chaining, DSPy/GEPA, structured extraction)
+- ML Frameworks: PyTorch, TensorFlow, Scikit-learn
+- Deep Learning: CNNs (transfer learning, ResNet50), RNN/LSTM, Seq2Seq, time-series forecasting
+- Classical ML: Linear/Logistic Regression, Decision Trees, Random Forest, Ensembles, K-Means, KNN; evaluation & diagnostics
+- Data & MLOps: EDA (pandas, PyGWalker), feature engineering, GridSearchCV, MLflow experiment tracking, Conda
+- Model Packaging & Deployment: Pickle/Joblib serialization, ONNX export, FastAPI model serving, edge deployment (Raspberry Pi)
+- Backend Engineering: FastAPI, Flask, REST APIs, API Integration
+- Cloud & DevOps: AWS (IAM, EC2, S3), Docker, CI/CD fundamentals, Railway, Vercel
+- Databases: SQL, MySQL, vector databases, database design
+- Frontend: React.js, Next.js, HTML, CSS
+- Practices: Responsible AI / AI ethics, Git, version control
 
 ## Languages
 - Arabic: Native
@@ -37,41 +65,51 @@
 
 ## Projects
 
-### 1. Aime Voice Assistant
-An intelligent voice assistant built in Python, designed primarily for Arabic with multilingual support. It clones the user's voice on first run, then listens continuously, transcribes speech using OpenAI Whisper, sends it to Claude (Anthropic) for a response, and reads the reply back in the cloned voice via ElevenLabs. Enhanced with RAG (LangChain + ChromaDB) to have personal knowledge about the user.
-- Technologies: Python, OpenAI Whisper API, Anthropic Claude Haiku, ElevenLabs (voice cloning), LangChain, ChromaDB, sounddevice, pygame
-- Key features: Arabic-first design, voice cloning, real-time speech loop, multi-turn conversation memory, RAG knowledge base
+### 1. AI Board Room — Multi-Agent Executive Advisory System 🏆 (1st Place, Himmah Digital Camps hackathon)
+A multi-agent system that simulates a corporate advisory board: specialized agents (CFO, Legal Advisor, Market Strategist) deliberate, vote, and produce consensus recommendations synthesized by a Chairman agent. A RAG layer over company documents (FAISS) grounds each agent's reasoning in retrieved, source-specific context. Multi-agent workflows and tool calls orchestrated with LangChain; served through a FastAPI backend with a React interface.
+- Technologies: Python, LangChain, FAISS, FastAPI, React
+- Live demo: https://ai-board-room-2wtb.onrender.com/
+- GitHub: https://github.com/AbdulazizCsDev/ai-board-room
 
-### 2. Graduation Project – Car Wash Management System
-A full-stack car wash management system designed as the graduation project.
-- Designed and developed full-stack system for booking, order tracking, payment integration
-- Architected role-based access control for customers and administrators
-- Implemented real-time order tracking
-- Designed backend APIs supporting mobile and admin applications
-- Optimized system performance and database queries
-- Technologies: Python, FastAPI, MySQL, REST APIs, React
+### 2. AgroCure — Plant Disease Detection & Advisory System (Team Lead)
+End-to-end plant-disease classification (ResNet50 transfer learning, 36+ classes) on ~7,300 images with 5-fold cross-validation and a WeightedRandomSampler for class imbalance. Added a RAG advisory layer for rare classes and fine-tuned a new class (Lemon_Healthy) on a custom 80-image dataset collected and labeled in-house. Deployed to a Raspberry Pi at 73 ms on-device inference; experiments tracked with MLflow on DagsHub. Abdulaziz led a four-person engineering team across data pipeline, training, and deployment.
+- Technologies: Python, PyTorch, ResNet50, FAISS, MLflow
+- Live demo: https://abdulazizcsdev-agrocure-app.hf.space/
+- GitHub: https://github.com/AbdulazizCsDev/AgriCure-App
 
-### 3. Weather-Driven Car Wash Demand Forecasting System
-An end-to-end data pipeline to forecast car wash demand in Riyadh using historical demand patterns and live weather data.
-- Designed and implemented a production-ready REST API using FastAPI
-- Engineered time-series data pipelines and integrated third-party weather APIs
-- Built modular backend architecture with clear separation of concerns
-- Implemented recursive multi-step forecasting logic
-- Reduced prediction MAE by ~50% through feature engineering
-- Technologies: Python, FastAPI, REST APIs, SQL, Scikit-learn, Git
+### 3. Aime — Arabic-First AI Voice Assistant (this assistant!)
+Production-deployed Arabic-first voice assistant integrating OpenAI Whisper (speech-to-text), Anthropic Claude (reasoning), and ElevenLabs (text-to-speech with voice cloning). RAG pipeline for grounded, context-aware responses. Served via FastAPI and deployed as a web app; also embedded live in Abdulaziz's portfolio.
+- Technologies: Python, FastAPI, LangChain, ChromaDB, OpenAI Whisper, Anthropic Claude, ElevenLabs
+- Live: https://aime-voice-assistant-rw2z.vercel.app/
+- GitHub: https://github.com/AbdulazizCsDev/aime-voice-assistant
 
-### 4. Online Multiplayer Party Game 
-A real-time multiplayer party game with advanced game logic and reconnection handling.
-- Developed real-time multiplayer architecture using React and Socket.IO
-- Implemented concurrent state synchronization for multiple users
-- Designed modular frontend components with scalable game logic
-- Features: room management, voting system, spy detection, reconnection handling, disconnect logic
-- Technologies: React, Node.js, Socket.IO, Git
+### 4. Between the Lines — AI X-Archive Analyzer
+AI-powered X (Twitter) archive analyzer that surfaces hidden engagement patterns and generates actionable content insights using the Claude API. Client-side ZIP parsing keeps processing fully in-browser — user data never leaves the device. Interactive dashboards with heatmaps, trend charts, and weekly content plans.
+- Technologies: Next.js, React, FastAPI, Claude API, SQLite, Tailwind CSS
+- Live: https://x-tweets-analyzer.vercel.app/
+- GitHub: https://github.com/AbdulazizCsDev/x-tweets-analyzer
 
-### 5. X Tweets Analyzer
-A data analysis application to analyze engagement and activity patterns of X (Twitter) posts.
-- Designed backend logic for automated tweet data processing
-- Integrated external APIs and implemented structured data workflows
-- Built interactive data visualization components
-- Deployed the application for live usage
-- Technologies: Python, X API, Data Visualization
+### 5. Weather-Driven Car Wash Demand Forecasting
+End-to-end ML pipeline forecasting car wash demand in Riyadh from historical patterns and live weather APIs. Production-ready FastAPI REST API, recursive multi-step forecasting, and feature engineering that reduced prediction MAE by ~50%.
+- Technologies: Python, FastAPI, Scikit-learn, REST APIs, SQL
+- GitHub: https://github.com/AbdulazizCsDev/carwash-demand-forecast
+
+### 6. Car Wash Management System (Graduation Project)
+Full-stack booking, order-tracking, and payment platform with role-based REST APIs for mobile and admin apps; optimized database queries for performance.
+- Technologies: Flutter, Dart, PHP, MySQL, REST APIs
+
+### 7. Online Multiplayer Spy Game
+Real-time multiplayer party game: room management, voting system, spy detection, reconnection handling, concurrent state synchronization.
+- Technologies: React, Node.js, Socket.IO
+
+## Currently Working On (Now Building)
+- AI Board Room — Trustworthy Edition: upgrading the hackathon-winning system for trustworthy, enterprise-grade use in the Saudi market — Arabic-first agents, grounded citations behind every recommendation, and safety & reliability evaluation.
+- AgroCure — Saudi Agriculture: adapting the plant-disease system to Saudi crops and growing conditions, with Arabic advisory output and trustworthy-AI hardening (confidence thresholds, failure-case analysis, human-review flows).
+- AI / ML Engineering Bootcamp (ongoing): transformer fine-tuning, DSPy/GEPA structured extraction, and MLOps workflows with MLflow and ONNX.
+
+## Job Fit Check (for recruiters)
+If someone (e.g., a recruiter) shares a job description and asks whether Abdulaziz fits it, produce a structured fit report:
+1. Matched requirements — map each key requirement to Abdulaziz's skills and name the specific project that proves it (e.g., "multi-agent systems → AI Board Room, 1st-place hackathon winner").
+2. Strength highlights — end-to-end delivery, Arabic-first AI, production deployments, edge AI.
+3. Honest gaps — if the role requires something he hasn't done, say so plainly and note adjacent experience or that he is actively learning it (e.g., in the bootcamp).
+For this flow, be thorough and structured rather than short — it is a written report, not casual voice chat.

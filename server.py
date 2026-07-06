@@ -86,16 +86,33 @@ def _check_rate_limit(request: Request) -> None:
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-def _get_voice_id() -> str:
-    """Return the active cloned voice ID from voices.json."""
+# Standard ElevenLabs premade voice ("Adam", multilingual) used when the
+# cloned voice is missing or has been removed from the ElevenLabs account.
+_FALLBACK_VOICE_ID = os.getenv("FALLBACK_VOICE_ID", "pNInz6obpgDQGcFmaJgB")
+
+# Voice IDs that already failed once this process — skip them on later requests.
+_dead_voice_ids: set[str] = set()
+
+
+def _get_cloned_voice_id() -> str | None:
+    """Return the active cloned voice ID from voices.json, or None."""
     voice_id = voice_manager.get_active_voice_id()
     if not voice_id:
         voices = voice_manager.get_voices()
         if voices:
             voice_id = voices[-1]["voice_id"]
-    if not voice_id:
-        raise HTTPException(status_code=500, detail="No cloned voice found in voices.json")
-    return voice_id
+    return voice_id or None
+
+
+def _voice_candidates() -> list[str]:
+    """Cloned voice first, then the standard fallback voice."""
+    candidates = []
+    cloned = _get_cloned_voice_id()
+    if cloned and cloned not in _dead_voice_ids:
+        candidates.append(cloned)
+    if _FALLBACK_VOICE_ID and _FALLBACK_VOICE_ID not in candidates:
+        candidates.append(_FALLBACK_VOICE_ID)
+    return candidates
 
 
 # ── Routes ────────────────────────────────────────────────────────────────────
@@ -172,25 +189,39 @@ async def chat(req: ChatRequest, request: Request):
 @app.post("/speak")
 async def speak(req: SpeakRequest):
     """
-    Convert text to speech using the active cloned ElevenLabs voice.
+    Convert text to speech with ElevenLabs. Tries the cloned voice first;
+    if it's unavailable (e.g. removed from the account), falls back to a
+    standard premade voice so Aime never goes silent.
     Returns an audio/mpeg stream.
     """
     if not req.text.strip():
         raise HTTPException(status_code=400, detail="text must not be empty")
 
-    voice_id = _get_voice_id()
+    candidates = _voice_candidates()
+    if not candidates:
+        raise HTTPException(status_code=500, detail="No ElevenLabs voice available")
 
-    try:
-        audio_stream = _elevenlabs.text_to_speech.convert(
-            text=req.text,
-            voice_id=voice_id,
-            model_id="eleven_multilingual_v2",
-            output_format="mp3_44100_128",
-        )
-        audio_bytes = b"".join(audio_stream)
-        return StreamingResponse(
-            io.BytesIO(audio_bytes),
-            media_type="audio/mpeg",
-        )
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc))
+    last_error: Exception | None = None
+    for voice_id in candidates:
+        try:
+            audio_stream = _elevenlabs.text_to_speech.convert(
+                text=req.text,
+                voice_id=voice_id,
+                model_id="eleven_multilingual_v2",
+                output_format="mp3_44100_128",
+            )
+            audio_bytes = b"".join(audio_stream)
+            return StreamingResponse(
+                io.BytesIO(audio_bytes),
+                media_type="audio/mpeg",
+            )
+        except Exception as exc:
+            last_error = exc
+            # Permanently skip the cloned voice only when it no longer exists;
+            # transient failures (quota, rate limit) should retry next time.
+            err = str(exc).lower()
+            if voice_id != _FALLBACK_VOICE_ID and ("voice_not_found" in err or "not found" in err or "does not exist" in err):
+                _dead_voice_ids.add(voice_id)
+            print(f"[speak] voice {voice_id} failed ({exc}); trying fallback", flush=True)
+
+    raise HTTPException(status_code=500, detail=str(last_error))

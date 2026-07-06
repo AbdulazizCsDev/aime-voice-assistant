@@ -13,8 +13,10 @@ Run with:
 import io
 import tempfile
 import os
+import time
+from collections import defaultdict
 
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -56,6 +58,30 @@ class ChatRequest(BaseModel):
 
 class SpeakRequest(BaseModel):
     text: str
+
+
+# ── Rate limiting (best-effort, per lambda instance) ─────────────────────────
+
+_RATE_WINDOW_SEC   = 300   # 5 minutes
+_RATE_MAX_REQUESTS = 20    # per IP per window
+_MAX_MESSAGE_CHARS = 8000  # generous enough for a pasted job description
+_MAX_HISTORY_TURNS = 30
+_MAX_TURN_CHARS    = 6000
+
+_request_log: dict[str, list[float]] = defaultdict(list)
+
+
+def _check_rate_limit(request: Request) -> None:
+    ip = (request.client.host if request.client else None) or "unknown"
+    now = time.time()
+    hits = [t for t in _request_log[ip] if now - t < _RATE_WINDOW_SEC]
+    if len(hits) >= _RATE_MAX_REQUESTS:
+        raise HTTPException(
+            status_code=429,
+            detail="Too many requests — please slow down and try again in a few minutes.",
+        )
+    hits.append(now)
+    _request_log[ip] = hits
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -106,22 +132,39 @@ async def transcribe(audio: UploadFile = File(...)):
 
 
 @app.post("/chat")
-async def chat(req: ChatRequest):
+async def chat(req: ChatRequest, request: Request):
     """
-    Receive a user message + conversation history, return Claude's reply (with RAG).
-    Response: { "reply": "..." }
+    Receive a user message + conversation history, return Claude's reply (with RAG)
+    and a navigation action for the portfolio frontend.
+    Response: { "reply": "...", "action": "projects.board-room" | ... | null }
 
     The caller is responsible for maintaining history and passing it on each turn.
     llm.py's internal history is synced from the request so multi-turn context works
     across stateless HTTP calls.
     """
-    # Sync the module-level history with what the client sent
+    _check_rate_limit(request)
+
+    message = req.message.strip()
+    if not message:
+        raise HTTPException(status_code=400, detail="message must not be empty")
+    if len(message) > _MAX_MESSAGE_CHARS:
+        message = message[:_MAX_MESSAGE_CHARS]
+
+    # Sync the module-level history with what the client sent (capped)
+    history = [
+        {"role": h.get("role", "user"), "content": str(h.get("content", ""))[:_MAX_TURN_CHARS]}
+        for h in req.history[-_MAX_HISTORY_TURNS:]
+        if h.get("content")
+    ]
     llm._history.clear()
-    llm._history.extend(req.history)
+    llm._history.extend(history)
 
     try:
-        reply = llm.get_response(req.message)
-        return {"reply": reply}
+        reply = llm.get_response(message)
+        action = llm.get_last_action()
+        # Lightweight analytics: what do visitors actually ask?
+        print(f"[chat] action={action or 'none'} q={message[:200]!r}", flush=True)
+        return {"reply": reply, "action": action}
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc))
 

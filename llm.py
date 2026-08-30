@@ -23,12 +23,14 @@ _history:     list[dict] = []
 _user_name:   str        = ""
 _last_action: str | None = None
 
-# Navigation targets the portfolio frontend understands
+# Navigation targets the portfolio frontend understands.
+# These must match the data-target-id values in the portfolio's
+# LanguageContext.jsx — if they drift, Aime navigates to nothing.
 VALID_ACTIONS = {
     "about", "experience", "projects", "now", "skills", "contact",
-    "projects.board-room", "projects.aime", "projects.agrocure",
+    "projects.board-room", "projects.aime", "projects.agricure",
     "projects.lines", "projects.forecast",
-    "now.board-room", "now.agrocure", "now.bootcamp",
+    "now.board-room", "now.agricure", "now.bootcamp",
     "none",
 }
 
@@ -43,7 +45,7 @@ _BASE_SYSTEM = """
 عندما تنتقل الواجهة إلى قسم أو بطاقة، يُمنع منعاً باتاً إعادة ذكر أي معلومة معروضة فيها. ردك = جملة إشارة قصيرة + سؤال متابعة، لا أكثر.
 أمثلة إلزامية للنمط:
 - "ما مشاريعه؟" → "هذه مشاريعه أمامك — هل يهمّك مشروع محدد؟"
-- "حدثني عن أجروكيور" → "هذا أجروكيور — التفاصيل على البطاقة أمامك. أتحب أن تعرف كيف بُني أو ما دور عبدالعزيز في الفريق؟"
+- "حدثني عن أجريكيور" → "هذا أجريكيور — التفاصيل على البطاقة أمامك. أتحب أن تعرف كيف بُني أو ما دور عبدالعزيز في الفريق؟"
 - "ما مهاراته؟" → "مهاراته كلها هنا — أي جانب يهمّك أكثر: النماذج اللغوية أم التعلّم العميق أم النشر؟"
 أضف معلومة فقط إذا لم تكن معروضة على الشاشة: قصة خلف المشروع، سبب قرار تقني، تفصيل تنفيذي غير مكتوب في البطاقة.
 
@@ -60,8 +62,8 @@ _BASE_SYSTEM = """
 أنهِ كل رد بسطر أخير منفصل بالصيغة: ACTION: <token>
 اختر token واحداً فقط من:
 about, experience, projects, now, skills, contact,
-projects.board-room, projects.aime, projects.agrocure, projects.lines, projects.forecast,
-now.board-room, now.agrocure, now.bootcamp, none
+projects.board-room, projects.aime, projects.agricure, projects.lines, projects.forecast,
+now.board-room, now.agricure, now.bootcamp, none
 - استخدم projects.<id> عند الحديث عن مشروع محدد، والقسم العام (projects) عند الحديث عن المشاريع عموماً.
 - استخدم now.<id> لما يعمل عليه حالياً، وnone إذا لم يكن هناك قسم مناسب.
 - لا تذكر ACTION أو التنقل داخل نص الرد نفسه.

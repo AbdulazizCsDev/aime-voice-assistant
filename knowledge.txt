@@ -16,8 +16,8 @@ AI / Machine Learning Engineer with a B.Sc. in Computer Science who designs, bui
 
 ## Key Achievements
 - 🏆 1st place, Himmah Digital Camps hackathon (AI Board Room, multi-agent system)
-- 73 ms inference latency, edge-deployed computer-vision model (AgroCure on Raspberry Pi)
-- Led a four-person engineering team across data pipeline, training, and deployment (AgroCure)
+- 73 ms inference latency, edge-deployed computer-vision model (AgriCure on Raspberry Pi)
+- Led a four-person engineering team across data pipeline, training, and deployment (AgriCure)
 - Reduced prediction MAE by ~50% through feature engineering (demand forecasting)
 - GPA 4.01 / 5
 
@@ -71,7 +71,7 @@ A multi-agent system that simulates a corporate advisory board: specialized agen
 - Live demo: https://ai-board-room-2wtb.onrender.com/
 - GitHub: https://github.com/AbdulazizCsDev/ai-board-room
 
-### 2. AgroCure — Plant Disease Detection & Advisory System (Team Lead)
+### 2. AgriCure — Plant Disease Detection & Advisory System (Team Lead)
 End-to-end plant-disease classification (ResNet50 transfer learning, 36+ classes) on ~7,300 images with 5-fold cross-validation and a WeightedRandomSampler for class imbalance. Added a RAG advisory layer for rare classes and fine-tuned a new class (Lemon_Healthy) on a custom 80-image dataset collected and labeled in-house. Deployed to a Raspberry Pi at 73 ms on-device inference; experiments tracked with MLflow on DagsHub. Abdulaziz led a four-person engineering team across data pipeline, training, and deployment.
 - Technologies: Python, PyTorch, ResNet50, FAISS, MLflow
 - Live demo: https://abdulazizcsdev-agrocure-app.hf.space/
@@ -104,7 +104,7 @@ Real-time multiplayer party game: room management, voting system, spy detection,
 
 ## Currently Working On (Now Building)
 - AI Board Room — Trustworthy Edition: upgrading the hackathon-winning system for trustworthy, enterprise-grade use in the Saudi market — Arabic-first agents, grounded citations behind every recommendation, and safety & reliability evaluation.
-- AgroCure — Saudi Agriculture: adapting the plant-disease system to Saudi crops and growing conditions, with Arabic advisory output and trustworthy-AI hardening (confidence thresholds, failure-case analysis, human-review flows).
+- AgriCure — Saudi Agriculture: adapting the plant-disease system to Saudi crops and growing conditions, with Arabic advisory output and trustworthy-AI hardening (confidence thresholds, failure-case analysis, human-review flows).
 - AI / ML Engineering Bootcamp (ongoing): transformer fine-tuning, DSPy/GEPA structured extraction, and MLOps workflows with MLflow and ONNX.
 
 ## Job Fit Check (for recruiters)
